@@ -44,7 +44,7 @@ group_names = [
     (
         "   ", # DEV
         {
-            "layout": "max"
+            "layout": "columns"
         }
     ),
 
@@ -148,23 +148,6 @@ def power_options():
     """
 
     qtile.cmd_spawn( "bash /home/marco/.config/scripts/power_options.sh" )
-
-
-def sleep_action():
-    """
-    Suspend the computer
-    """
-
-    qtile.cmd_spawn( "systemctl suspend" )
-
-
-def shutdown_action():
-    """
-    Shutdown the computer
-    """
-
-    qtile.cmd_spawn( "shutdown now" )
-
 
 screens = [
     Screen(
