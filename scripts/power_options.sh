@@ -2,6 +2,7 @@
 
 selected=$(echo "Lock
 Suspend
+Restart
 Shutdown" | rofi -dmenu -p "Select Power Option")
 
 if [ "$selected" == "Lock" ]; then
@@ -11,6 +12,11 @@ fi
 
 if [ "$selected" == "Suspend" ]; then
 	systemctl suspend
+    exit
+fi
+
+if [ "$selected" == "Restart" ]; then
+    reboot
     exit
 fi
 
