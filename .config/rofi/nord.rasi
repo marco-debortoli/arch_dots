@@ -19,7 +19,7 @@
     background-color: @nord1;
     border: 0px;
     margin: 0px;
-    padding: 0px;
+    padding: 5px;
     spacing: 0px;
     text-color: @nord4;
 }
