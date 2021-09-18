@@ -2,4 +2,4 @@
 
 picom &
 dunst &
-feh --bg-scale ~/wallpapers/black_hole.jpg
+feh --bg-scale ~/wallpapers/nasa-solar-system.jpg

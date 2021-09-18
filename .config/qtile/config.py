@@ -10,74 +10,92 @@ import os
 import subprocess
 
 mod = "mod4"
-FONT = 'Caskaydia Cove Nerd Font'
+FONT = "Caskaydia Cove Nerd Font"
 
 
 from key_config import keys
 
 
 # Dracula Color Theme
-colors = [
-    ["#282a36", "#282a36"], # Background                [0]
-    ["#44475a", "#44475a"], # Current Line / Selection  [1]
-    ["#f8f8f2", "#f8f8f2"], # Foreground                [2]
-    ["#6272a4", "#6272a4"], # Comment                   [3]
-    ["#8be9fd", "#8be9fd"], # Cyan                      [4]
-    ["#50fa7b", "#50fa7b"], # Green                     [5]
-    ["#ffb86c", "#ffb86c"], # Orange                    [6]
-    ["#ff79c6", "#ff79c6"], # Pink                      [7]
-    ["#bd93f9", "#bd93f9"], # Purple                    [8]
-    ["#ff5555", "#ff5555"], # Red                       [9]
-    ["#f1fa8c", "#f1fa8c"], # Yellow                    [10]
-]
+# colors = [
+#     ["#282a36", "#282a36"], # Background                [0]
+#     ["#44475a", "#44475a"], # Current Line / Selection  [1]
+#     ["#f8f8f2", "#f8f8f2"], # Foreground                [2]
+#     ["#6272a4", "#6272a4"], # Comment                   [3]
+#     ["#8be9fd", "#8be9fd"], # Cyan                      [4]
+#     ["#50fa7b", "#50fa7b"], # Green                     [5]
+#     ["#ffb86c", "#ffb86c"], # Orange                    [6]
+#     ["#ff79c6", "#ff79c6"], # Pink                      [7]
+#     ["#bd93f9", "#bd93f9"], # Purple                    [8]
+#     ["#ff5555", "#ff5555"], # Red                       [9]
+#     ["#f1fa8c", "#f1fa8c"], # Yellow                    [10]
+# ]
 
+colors = [
+    ["#2e3440", "#2e3440"], #nord0
+    ["#3b4252", "#3b4252"], #nord1
+    ["#434c5e", "#434c5e"], #nord2
+    ["#4c566a", "#4c566a"], #nord3
+    ["#d8dee9", "#d8dee9"], #nord4
+    ["#e5e9f0", "#e5e9f0"], #nord5
+    ["#eceff4", "#eceff4"], #nord6
+    ["#8fbcbb", "#8fbcbb"], #nord7
+    ["#88c0d0", "#88c0d0"], #nord8
+    ["#81a1c1", "#81a1c1"], #nord9
+    ["#5e81ac", "#5e81ac"], #nord10
+    ["#bf616a", "#bf616a"], #nord11
+    ["#d08770", "#d08770"], #nord12
+    ["#ebcb8b", "#ebcb8b"], #nord13
+    ["#a3be8c", "#a3be8c"], #nord14
+    ["#b48ead", "#b48ead"], #nord15
+]
 
 
 group_names = [
     ( 
-        "   ", # SYS
+        " \uf120  ", # SYS
         {
             "layout": "columns"
         }
     ),
 
     (
-        "   ", # DEV
+        " \uf121  ", # DEV
         {
             "layout": "columns"
         }
     ),
 
     (
-        "   ", # WEB
+        " \uf268  ", # WEB
         {
             "layout": "columns"
         }
     ),
 
     (
-        "   ", # CHAT
+        " \uf086  ", # CHAT
         {
             "layout": "columns"
         }
     ),
 
     (
-        "   ", # HOME
+        " \uf015  ", # HOME
         {
             "layout": "columns"
         }
     ),
 
     (
-        "   ", # GAME
+        " \uf11b  ", # GAME
         {
             "layout": "columns"
         }
     ),
 
     (
-        "   ", # EXTRA
+        " \uf249  ", # EXTRA
         {
             "layout": "columns"
         }
@@ -160,12 +178,12 @@ screens = [
                     padding_x = 3,
                     borderwidth = 3,
                     active = colors[ 8 ],
-                    inactive = colors[ 2 ],
+                    inactive = colors[ 10 ],
                     rounded = False,
-                    highlight_color = colors[ 1 ],
+                    highlight_color = colors[ 0 ],
                     highlight_method = "line",
-                    this_current_screen_border = colors[ 8 ],
-                    this_screen_border = colors[ 8 ],
+                    this_current_screen_border = colors[ 14 ],
+                    this_screen_border = colors[ 14 ],
                     foreground = colors[ 0 ],
                     background = colors[ 0 ],
                     fontsize = 14,
@@ -177,7 +195,7 @@ screens = [
                 ),
 
                 widget.WindowName(
-                    background = colors[ 0 ], foreground = colors[ 8 ] 
+                    background = colors[ 0 ], foreground = colors[ 4 ] 
                 ),
 
 
@@ -191,32 +209,33 @@ screens = [
 
                 widget.Net(
                     update_interval = 5,
-                    background = colors[ 1 ],
-                    foreground = colors[ 2 ]
+                    background = colors[ 4 ],
+                    foreground = colors[ 0 ]
                 ),
 
                 widget.Sep(
-                    linewidth = 0, padding = 6, background = colors[ 0 ]
+                    linewidth = 0, padding = 6, background = colors[ 4 ]
                 ),
 
                 widget.Clock(
-                    foreground = colors[ 2 ],
+                    foreground = colors[ 4 ],
+                    background = colors[ 10 ],
                     format = "%A %B %d %H:%M:%S",
                     padding = 8
                 ),
 
                 widget.Sep(
-                    linewidth = 0, padding = 6, background = colors[ 0 ]
+                    linewidth = 0, padding = 6, background = colors[ 10 ]
                 ),
 
                 widget.Sep(
-                    linewidth = 0, padding = 6, background = colors[ 1 ]
+                    linewidth = 0, padding = 6, background = colors[ 4 ]
                 ),
 
                 widget.TextBox(
                     text = " \uf011 ",
-                    background = colors[ 1 ],
-                    foreground = colors[ 2 ],
+                    background = colors[ 4 ],
+                    foreground = colors[ 0 ],
                     font = FONT,
                     fontsize = 14,
                     padding = 0,
@@ -226,12 +245,12 @@ screens = [
                 ),
 
                 widget.Sep(
-                    linewidth = 0, padding = 10, background = colors[ 1 ]
+                    linewidth = 0, padding = 10, background = colors[ 4 ]
                 ),
 
 
             ],
-            26,
+            28,
         ),
     ),
 ]
