@@ -32,22 +32,22 @@ from key_config import keys
 # ]
 
 colors = [
-    ["#2e3440", "#2e3440"], #nord0
-    ["#3b4252", "#3b4252"], #nord1
-    ["#434c5e", "#434c5e"], #nord2
-    ["#4c566a", "#4c566a"], #nord3
-    ["#d8dee9", "#d8dee9"], #nord4
-    ["#e5e9f0", "#e5e9f0"], #nord5
-    ["#eceff4", "#eceff4"], #nord6
-    ["#8fbcbb", "#8fbcbb"], #nord7
-    ["#88c0d0", "#88c0d0"], #nord8
-    ["#81a1c1", "#81a1c1"], #nord9
-    ["#5e81ac", "#5e81ac"], #nord10
-    ["#bf616a", "#bf616a"], #nord11
-    ["#d08770", "#d08770"], #nord12
-    ["#ebcb8b", "#ebcb8b"], #nord13
-    ["#a3be8c", "#a3be8c"], #nord14
-    ["#b48ead", "#b48ead"], #nord15
+    ["#2e3440", "#2e3440"], # nord0
+    ["#3b4252", "#3b4252"], # nord1
+    ["#434c5e", "#434c5e"], # nord2
+    ["#4c566a", "#4c566a"], # nord3
+    ["#d8dee9", "#d8dee9"], # nord4
+    ["#e5e9f0", "#e5e9f0"], # nord5
+    ["#eceff4", "#eceff4"], # nord6
+    ["#8fbcbb", "#8fbcbb"], # nord7
+    ["#88c0d0", "#88c0d0"], # nord8
+    ["#81a1c1", "#81a1c1"], # nord9
+    ["#5e81ac", "#5e81ac"], # nord10
+    ["#bf616a", "#bf616a"], # nord11
+    ["#d08770", "#d08770"], # nord12
+    ["#ebcb8b", "#ebcb8b"], # nord13
+    ["#a3be8c", "#a3be8c"], # nord14
+    ["#b48ead", "#b48ead"], # nord15
 ]
 
 
@@ -102,24 +102,28 @@ group_names = [
     )
 ]
 
-groups = [ Group( config[ 0 ], **config[ 1 ] ) for config in group_names ]
 
-for i, group in enumerate( groups, 1 ):
+groups = [
+    Group(config[0], **config[1]) for config in group_names
+]
+
+
+for i, group in enumerate(groups, 1):
     keys.extend([
         # Key to switch to group
         Key(
-            [ mod ], 
-            str( i ), 
-            lazy.group[ group.name ].toscreen(), 
-            desc = f"Switch to group {group.name}" 
+            [mod], 
+            str(i), 
+            lazy.group[group.name].toscreen(), 
+            desc=f"Switch to group {group.name}" 
         ),
 
         # Key to move a focused window to a group (but no follow)
         Key( 
-            [ mod, "shift" ], 
-            str( i ), 
-            lazy.window.togroup( group.name ), 
-            desc = f"move focused window to group {group.name}"
+            [mod, "shift"], 
+            str(i), 
+            lazy.window.togroup(group.name), 
+            desc=f"move focused window to group {group.name}"
         ) 
    ])
 
@@ -127,13 +131,14 @@ for i, group in enumerate( groups, 1 ):
 layout_theme = {
     "border_width": 2,
     "margin": 6,
-    "border_focus": colors[ 8 ][ 0 ],
-    "border_normal": colors[ 0 ][ 0 ]
+    "border_focus": colors[8][0],
+    "border_normal": colors[0][0]
 }
 
+
 layouts = [
-    layout.Columns( **layout_theme ),
-    layout.MonadTall( **layout_theme ),
+    layout.Columns(**layout_theme),
+    layout.MonadTall(**layout_theme),
     layout.Max(),
     
     # Try more layouts by unleashing below layouts.
@@ -149,12 +154,14 @@ layouts = [
     # layout.Zoomy(),
 ]
 
+
 widget_defaults = dict(
-    font = FONT,
-    fontsize = 12,
-    padding = 5,
-    background = colors[ 0 ]
+    font=FONT,
+    fontsize=12,
+    padding=5,
+    background=colors[0]
 )
+
 
 extension_defaults = widget_defaults.copy()
 
@@ -165,153 +172,161 @@ def power_options():
     Lock the computer using betterlockscreen
     """
 
-    qtile.cmd_spawn( "bash /home/marco/.config/scripts/power_options.sh" )
+    qtile.cmd_spawn("bash /home/marco/.config/scripts/power_options.sh")
+
 
 screens = [
     Screen(
-        top = bar.Bar(
+        top=bar.Bar(
             [
                 widget.GroupBox(
-                    margin_y = 3,
-                    margin_x = 0,
-                    padding_y = 5,
-                    padding_x = 3,
-                    borderwidth = 3,
-                    active = colors[ 8 ],
-                    inactive = colors[ 10 ],
-                    rounded = False,
-                    highlight_color = colors[ 0 ],
-                    highlight_method = "line",
-                    this_current_screen_border = colors[ 14 ],
-                    this_screen_border = colors[ 14 ],
-                    foreground = colors[ 0 ],
-                    background = colors[ 0 ],
-                    fontsize = 14,
-                    disable_drag = True
+                    margin_y=3,
+                    margin_x=0,
+                    padding_y=5,
+                    padding_x=3,
+                    borderwidth=3,
+                    active=colors[8],
+                    inactive=colors[10],
+                    rounded=False,
+                    highlight_color=colors[0],
+                    highlight_method="line",
+                    this_current_screen_border=colors[14],
+                    this_screen_border=colors[14],
+                    foreground=colors[0],
+                    background=colors[0],
+                    fontsize=14,
+                    disable_drag=True
                 ),
 
                 widget.Sep(
-                    linewidth = 0, padding = 24, background = colors[ 0 ]
+                    linewidth=0,
+                    padding=24,
+                    background=colors[0]
                 ),
 
                 widget.WindowName(
-                    background = colors[ 0 ], foreground = colors[ 4 ] 
+                    background=colors[0],
+                    foreground=colors[4] 
                 ),
 
                 # System Tray
 
                 widget.Systray(
-                    background = colors[ 0 ]
+                    background=colors[0]
                 ),
 
                 widget.Sep(
-                    linewidth = 0, padding = 12, background = colors[ 0 ]
+                    linewidth=0,
+                    padding=12,
+                    background=colors[0]
                 ),
 
                 # CPU WIDGET
 
                 widget.TextBox(
                     text="\uf109",
-                    font = FONT,
-                    fontsize = 14,
-                    foreground = colors[ 12 ],
-                    padding = 6
+                    font=FONT,
+                    fontsize=14,
+                    foreground=colors[12],
+                    padding=6
                 ),
 
                 widget.Sep(
-                    linewidth = 0, 
-                    padding = 4, 
-                    background = colors[ 0 ]
+                    linewidth=0, 
+                    padding=4, 
+                    background=colors[0]
                 ),
 
                 widget.CPU(
-                    background = colors[ 0 ],
-                    foreground = colors[ 12 ],
-                    font = FONT,
-                    fontsize = 14,
-                    format = '{load_percent}%',
-                    update_interval = 10.0
+                    background=colors[0],
+                    foreground=colors[12],
+                    font=FONT,
+                    fontsize=14,
+                    format='{load_percent}%',
+                    update_interval=10.0
                 ),
 
                 widget.TextBox(
-                    text = "/",
-                    foreground = colors[ 4 ],
-                    background = colors[ 0 ],
-                    padding = 8,
-                    fontsize = 14
+                    text="/",
+                    foreground=colors[4],
+                    background=colors[0],
+                    padding=8,
+                    fontsize=14
                 ),
 
                 # Volume Widget                
 
                 widget.TextBox(
                     text="\ufa7d",
-                    font = FONT,
-                    fontsize = 14,
-                    foreground = colors[ 13 ],
-                    padding = 4
+                    font=FONT,
+                    fontsize=14,
+                    foreground=colors[13],
+                    padding=4
                 ),
 
                 widget.Sep(
-                    linewidth = 0, 
-                    padding = 4, 
-                    background = colors[ 0 ]
+                    linewidth=0, 
+                    padding=4, 
+                    background=colors[0]
                 ),
 
                 widget.PulseVolume(
-                    font = FONT,
-                    fontsize = 14,
-                    foreground = colors[ 13 ],
-                    update_interval = 0.2
+                    font=FONT,
+                    fontsize=14,
+                    foreground=colors[13],
+                    update_interval=0.2
                 ),
 
                 widget.TextBox(
-                    text = "/",
-                    foreground = colors[ 4 ],
-                    background = colors[ 0 ],
-                    padding = 8,
-                    fontsize = 14
+                    text="/",
+                    foreground=colors[4],
+                    background=colors[0],
+                    padding=8,
+                    fontsize=14
                 ),
 
                 # Clock Widget
 
                 widget.Clock(
-                    foreground = colors[ 4 ],
-                    background = colors[ 0 ],
-                    format = "%A %B %d %H:%M",
-                    padding = 8
+                    foreground=colors[4],
+                    background=colors[0],
+                    format="%A %B %d %H:%M",
+                    padding=8
                 ),
 
                 widget.Sep(
-                    linewidth = 0, padding = 6, background = colors[ 0 ]
+                    linewidth=0,
+                    padding=6,
+                    background=colors[0]
                 ),
 
                 # Exit Widget
 
                 widget.TextBox(
-                    text = "\uf438",
-                    background = colors[ 0 ],
-                    foreground = colors[ 11 ],
-                    padding = -5,
-                    fontsize = 39
+                    text="\uf438",
+                    background=colors[0],
+                    foreground=colors[11],
+                    padding=-5,
+                    fontsize=39
                 ),
 
                 widget.TextBox(
-                    text = " \uf705 ",
-                    background = colors[ 11 ],
-                    foreground = colors[ 4 ],
-                    font = FONT,
-                    fontsize = 18,
-                    padding = 0,
-                    mouse_callbacks = {
+                    text=" \uf705 ",
+                    background=colors[11],
+                    foreground=colors[4],
+                    font=FONT,
+                    fontsize=18,
+                    padding=0,
+                    mouse_callbacks={
                         "Button1": power_options
                     }
                 ),
 
                 widget.Sep(
-                    linewidth = 0, padding = 4, background = colors[ 11 ]
+                    linewidth=0,
+                    padding=4,
+                    background=colors[11]
                 ),
-
-
             ],
             28,
         ),
@@ -321,10 +336,14 @@ screens = [
 
 # Drag floating layouts.
 mouse = [
-    Drag([mod], "Button1", lazy.window.set_position_floating(),
-         start=lazy.window.get_position()),
-    Drag([mod], "Button3", lazy.window.set_size_floating(),
-         start=lazy.window.get_size()),
+    Drag(
+        [mod], "Button1", lazy.window.set_position_floating(),
+        start=lazy.window.get_position()
+    ),
+    Drag(
+        [mod], "Button3", lazy.window.set_size_floating(),
+        start=lazy.window.get_size()
+    ),
     Click([mod], "Button2", lazy.window.bring_to_front())
 ]
 
@@ -333,16 +352,20 @@ dgroups_app_rules = []  # type: List
 follow_mouse_focus = True
 bring_front_click = False
 cursor_warp = False
-floating_layout = layout.Floating(float_rules=[
-    # Run the utility of `xprop` to see the wm class and name of an X client.
-    *layout.Floating.default_float_rules,
-    Match(wm_class='confirmreset'),  # gitk
-    Match(wm_class='makebranch'),  # gitk
-    Match(wm_class='maketag'),  # gitk
-    Match(wm_class='ssh-askpass'),  # ssh-askpass
-    Match(title='branchdialog'),  # gitk
-    Match(title='pinentry'),  # GPG key password entry
-])
+
+floating_layout = layout.Floating(
+    float_rules=[
+        # Run the utility of `xprop` to see the wm class and name of an X client.
+        *layout.Floating.default_float_rules,
+        Match(wm_class='confirmreset'),  # gitk
+        Match(wm_class='makebranch'),  # gitk
+        Match(wm_class='maketag'),  # gitk
+        Match(wm_class='ssh-askpass'),  # ssh-askpass
+        Match(title='branchdialog'),  # gitk
+        Match(title='pinentry'),  # GPG key password entry
+    ]
+)
+
 auto_fullscreen = True
 focus_on_window_activation = "smart"
 reconfigure_screens = True
