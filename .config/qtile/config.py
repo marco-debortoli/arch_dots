@@ -198,6 +198,7 @@ screens = [
                     background = colors[ 0 ], foreground = colors[ 4 ] 
                 ),
 
+                # System Tray
 
                 widget.Systray(
                     background = colors[ 0 ]
@@ -207,37 +208,99 @@ screens = [
                     linewidth = 0, padding = 12, background = colors[ 0 ]
                 ),
 
-                widget.Net(
-                    update_interval = 5,
-                    background = colors[ 4 ],
-                    foreground = colors[ 0 ]
+                # CPU WIDGET
+
+                widget.TextBox(
+                    text="\uf109",
+                    font = FONT,
+                    fontsize = 14,
+                    foreground = colors[ 12 ],
+                    padding = 6
                 ),
 
                 widget.Sep(
-                    linewidth = 0, padding = 6, background = colors[ 4 ]
+                    linewidth = 0, 
+                    padding = 4, 
+                    background = colors[ 0 ]
                 ),
+
+                widget.CPU(
+                    background = colors[ 0 ],
+                    foreground = colors[ 12 ],
+                    font = FONT,
+                    fontsize = 14,
+                    format = '{load_percent}%',
+                    update_interval = 10.0
+                ),
+
+                widget.TextBox(
+                    text = "/",
+                    foreground = colors[ 4 ],
+                    background = colors[ 0 ],
+                    padding = 8,
+                    fontsize = 14
+                ),
+
+                # Volume Widget                
+
+                widget.TextBox(
+                    text="\ufa7d",
+                    font = FONT,
+                    fontsize = 14,
+                    foreground = colors[ 13 ],
+                    padding = 4
+                ),
+
+                widget.Sep(
+                    linewidth = 0, 
+                    padding = 4, 
+                    background = colors[ 0 ]
+                ),
+
+                widget.PulseVolume(
+                    font = FONT,
+                    fontsize = 14,
+                    foreground = colors[ 13 ],
+                    update_interval = 0.2
+                ),
+
+                widget.TextBox(
+                    text = "/",
+                    foreground = colors[ 4 ],
+                    background = colors[ 0 ],
+                    padding = 8,
+                    fontsize = 14
+                ),
+
+                # Clock Widget
 
                 widget.Clock(
                     foreground = colors[ 4 ],
-                    background = colors[ 10 ],
-                    format = "%A %B %d %H:%M:%S",
+                    background = colors[ 0 ],
+                    format = "%A %B %d %H:%M",
                     padding = 8
                 ),
 
                 widget.Sep(
-                    linewidth = 0, padding = 6, background = colors[ 10 ]
+                    linewidth = 0, padding = 6, background = colors[ 0 ]
                 ),
 
-                widget.Sep(
-                    linewidth = 0, padding = 6, background = colors[ 4 ]
+                # Exit Widget
+
+                widget.TextBox(
+                    text = "\uf438",
+                    background = colors[ 0 ],
+                    foreground = colors[ 11 ],
+                    padding = -5,
+                    fontsize = 39
                 ),
 
                 widget.TextBox(
-                    text = " \uf011 ",
-                    background = colors[ 4 ],
-                    foreground = colors[ 0 ],
+                    text = " \uf705 ",
+                    background = colors[ 11 ],
+                    foreground = colors[ 4 ],
                     font = FONT,
-                    fontsize = 14,
+                    fontsize = 18,
                     padding = 0,
                     mouse_callbacks = {
                         "Button1": power_options
@@ -245,7 +308,7 @@ screens = [
                 ),
 
                 widget.Sep(
-                    linewidth = 0, padding = 10, background = colors[ 4 ]
+                    linewidth = 0, padding = 4, background = colors[ 11 ]
                 ),
 
 
