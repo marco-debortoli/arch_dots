@@ -6,6 +6,8 @@ from libqtile import bar, layout, widget, hook, qtile
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 
+from widgets import custom_groups
+
 import os
 import subprocess
 
@@ -51,60 +53,43 @@ colors = [
 ]
 
 
-group_names = [
-    ( 
-        " \uf120  ", # SYS
-        {
-            "layout": "columns"
-        }
-    ),
+# group_names = [
+#     # SYS
+#     (" \uf120  ", {"layout": "columns"}),
 
-    (
-        " \uf121  ", # DEV
-        {
-            "layout": "columns"
-        }
-    ),
+#     # DEV
+#     (" \uf121  ", {"layout": "columns"}),
 
-    (
-        " \uf268  ", # WEB
-        {
-            "layout": "columns"
-        }
-    ),
+#     # WEB
+#     (" \uf268  ", {"layout": "columns"}),
 
-    (
-        " \uf086  ", # CHAT
-        {
-            "layout": "columns"
-        }
-    ),
+#     # CHAT
+#     (" \uf086  ", {"layout": "columns"}),
 
-    (
-        " \uf015  ", # HOME
-        {
-            "layout": "columns"
-        }
-    ),
+#     # HOME
+#     (" \uf015  ", {"layout": "columns"}),
 
-    (
-        " \uf11b  ", # GAME
-        {
-            "layout": "columns"
-        }
-    ),
+#     # GAME
+#     (" \uf11b  ", {"layout": "columns"}),
 
-    (
-        " \uf249  ", # EXTRA
-        {
-            "layout": "columns"
-        }
-    )
+#     # EXTRA
+#     (" \uf249  ", {"layout": "columns"})
+# ]
+
+solar_system_groups = [
+    ("Mercury", {"layout": "columns"}),
+    ("Venus", {"layout": "columns"}),
+    ("Earth", {"layout": "columns"}),
+    ("Mars", {"layout": "columns"}),
+    ("Jupiter", {"layout": "columns"}),
+    ("Saturn", {"layout": "columns"}),
+    ("Uranus", {"layout": "columns"}),
+    ("Neptune", {"layout": "columns"}),
 ]
 
 
 groups = [
-    Group(config[0], **config[1]) for config in group_names
+    Group(config[0], **config[1]) for config in solar_system_groups
 ]
 
 
@@ -129,15 +114,16 @@ for i, group in enumerate(groups, 1):
 
 
 layout_theme = {
-    "border_width": 2,
-    "margin": 6,
+    "border_width": 4,
+    "margin": [10, 4, 10, 4],
+    "margin_on_single": [10, 8, 10, 8],
     "border_focus": colors[8][0],
     "border_normal": colors[0][0]
 }
 
 
 layouts = [
-    layout.Columns(**layout_theme),
+    layout.Columns(**layout_theme, insert_position=1),
     layout.MonadTall(**layout_theme),
     layout.Max(),
     
@@ -155,11 +141,13 @@ layouts = [
 ]
 
 
+BACKGROUND = colors[1]
+
 widget_defaults = dict(
     font=FONT,
     fontsize=12,
     padding=5,
-    background=colors[0]
+    background=BACKGROUND
 )
 
 
@@ -171,54 +159,107 @@ def power_options():
     """
     Lock the computer using betterlockscreen
     """
-
     qtile.cmd_spawn("bash /home/marco/.config/scripts/power_options.sh")
 
+
+PROGRAMS = {
+    "visual studio code": "\ue70c  Visual Studio Code",
+    "google chrome": "\uf268  Google Chrome",
+    "alacritty": "\uf120  Terminal",
+    "slack": "\uf198  Slack",
+    "obsidian": "\uf249  Obsidian"
+}
+
+def window_name(text):
+    for k in PROGRAMS.keys():
+        if k in text.lower():
+            return PROGRAMS[k]
+
+    return f"\uf824  {text}"
 
 screens = [
     Screen(
         top=bar.Bar(
             [
-                widget.GroupBox(
-                    margin_y=3,
-                    margin_x=0,
-                    padding_y=5,
-                    padding_x=3,
-                    borderwidth=3,
-                    active=colors[8],
-                    inactive=colors[10],
-                    rounded=False,
-                    highlight_color=colors[0],
-                    highlight_method="line",
-                    this_current_screen_border=colors[14],
-                    this_screen_border=colors[14],
-                    foreground=colors[0],
-                    background=colors[0],
-                    fontsize=14,
-                    disable_drag=True
+                widget.Image(
+                    background=None,
+                    filename="~/.config/qtile/images/semicircle_flipped.png",
+                    length=15,
+                ),
+                
+                widget.TextBox(
+                    text="\uf185 ",
+                    foreground=colors[13],
+                    background=BACKGROUND,
+                    padding=1,
+                    fontsize=22
                 ),
 
                 widget.Sep(
                     linewidth=0,
-                    padding=24,
-                    background=colors[0]
+                    padding=6,
+                    background=BACKGROUND
+                ),
+
+                custom_groups.SolarGroups(
+                    margin_x=0,
+                    spacing=0,
+                    margin_y=4,
+                    padding_y=0
+                ),
+
+                widget.Image(
+                    background=None,
+                    filename="~/.config/qtile/images/semicircle.png",
+                    margin_x=-1,
+                    length=15
+                ),
+
+                widget.Spacer(
+                    background=None
+                ),
+
+                widget.Image(
+                    background=None,
+                    filename="~/.config/qtile/images/semicircle_flipped.png",
+                    length=15,
                 ),
 
                 widget.WindowName(
-                    background=colors[0],
-                    foreground=colors[4] 
+                    background=BACKGROUND,
+                    foreground=colors[4],
+                    width=bar.CALCULATED,
+                    parse_text=window_name,
+                    empty_group_string="No Window"
+                ),
+
+                widget.Image(
+                    background=None,
+                    filename="~/.config/qtile/images/semicircle.png",
+                    margin_x=-1,
+                    length=15
+                ),
+
+                widget.Spacer(
+                    background=None
                 ),
 
                 # System Tray
 
                 widget.Systray(
-                    background=colors[0]
+                    background=None
                 ),
 
                 widget.Sep(
                     linewidth=0,
                     padding=12,
-                    background=colors[0]
+                    background=None
+                ),
+
+                widget.Image(
+                    background=None,
+                    filename="~/.config/qtile/images/semicircle_flipped.png",
+                    length=15
                 ),
 
                 # CPU WIDGET
@@ -234,11 +275,11 @@ screens = [
                 widget.Sep(
                     linewidth=0, 
                     padding=4, 
-                    background=colors[0]
+                    background=BACKGROUND
                 ),
 
                 widget.CPU(
-                    background=colors[0],
+                    background=BACKGROUND,
                     foreground=colors[12],
                     font=FONT,
                     fontsize=14,
@@ -247,11 +288,11 @@ screens = [
                 ),
 
                 widget.TextBox(
-                    text="/",
+                    text="|",
                     foreground=colors[4],
-                    background=colors[0],
+                    background=BACKGROUND,
                     padding=8,
-                    fontsize=14
+                    fontsize=10
                 ),
 
                 # Volume Widget                
@@ -267,7 +308,7 @@ screens = [
                 widget.Sep(
                     linewidth=0, 
                     padding=4, 
-                    background=colors[0]
+                    background=BACKGROUND
                 ),
 
                 widget.PulseVolume(
@@ -278,18 +319,18 @@ screens = [
                 ),
 
                 widget.TextBox(
-                    text="/",
+                    text="|",
                     foreground=colors[4],
-                    background=colors[0],
+                    background=BACKGROUND,
                     padding=8,
-                    fontsize=14
+                    fontsize=10
                 ),
 
                 # Clock Widget
 
                 widget.Clock(
                     foreground=colors[4],
-                    background=colors[0],
+                    background=BACKGROUND,
                     format="%A %B %d %H:%M",
                     padding=8
                 ),
@@ -297,17 +338,17 @@ screens = [
                 widget.Sep(
                     linewidth=0,
                     padding=6,
-                    background=colors[0]
+                    background=BACKGROUND
                 ),
 
                 # Exit Widget
 
                 widget.TextBox(
                     text="\uf438",
-                    background=colors[0],
+                    background=BACKGROUND,
                     foreground=colors[11],
                     padding=-5,
-                    fontsize=39
+                    fontsize=44
                 ),
 
                 widget.TextBox(
@@ -316,19 +357,23 @@ screens = [
                     foreground=colors[4],
                     font=FONT,
                     fontsize=18,
-                    padding=0,
+                    padding=-4,
                     mouse_callbacks={
                         "Button1": power_options
                     }
                 ),
 
-                widget.Sep(
-                    linewidth=0,
-                    padding=4,
-                    background=colors[11]
+                widget.Image(
+                    background=None,
+                    filename="~/.config/qtile/images/semicircle_red.png",
+                    margin_x=-1,
+                    length=15
                 ),
             ],
-            28,
+            32,
+            opacity=1,
+            margin=[8,5,0,5],
+            background="#00000000"
         ),
     ),
 ]

@@ -2,4 +2,4 @@
 
 picom &
 dunst &
-feh --bg-scale ~/wallpapers/nasa-solar-system.jpg
+feh --bg-center ~/wallpapers/solar_system_minimal.png

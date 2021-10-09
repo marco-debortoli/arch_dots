@@ -8,6 +8,11 @@
 # References:
 #   https://github.com/alacritty/alacritty
 
+window:
+  padding:
+    x: 10
+    y: 10
+
 colors:
   primary:
     background: '#2e3440'
