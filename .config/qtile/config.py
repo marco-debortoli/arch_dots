@@ -6,7 +6,7 @@ from libqtile import bar, layout, widget, hook, qtile
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 
-from widgets import custom_groups
+from widgets import custom_groups, covid
 
 import os
 import subprocess
@@ -262,6 +262,25 @@ screens = [
                     length=15
                 ),
 
+                # COVID WIDGET
+
+                covid.CovidCaseCount(
+                    state="Massachusetts",
+                    ignore_weekend=True,
+                    update_interval=21600,
+                    fontsize=14,
+                    increasing_case_colour=colors[11],
+                    decreasing_case_colour=colors[14]
+                ),
+
+                widget.TextBox(
+                    text="|",
+                    foreground=colors[4],
+                    background=BACKGROUND,
+                    padding=8,
+                    fontsize=10
+                ),
+
                 # CPU WIDGET
 
                 widget.TextBox(
@@ -332,7 +351,7 @@ screens = [
                     foreground=colors[4],
                     background=BACKGROUND,
                     format="%A %B %d %H:%M",
-                    padding=8
+                    padding=0
                 ),
 
                 widget.Sep(

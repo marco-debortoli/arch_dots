@@ -35,8 +35,8 @@ class SolarGroups(_GroupBase):
         "mars": "#ad6242",
         "jupiter": "#b07f35",
         "saturn": "#fae5bf",
-        "uranus": "#ace5ee",
-        "neptune": "#366896"
+        "uranus": "#366896",
+        "neptune": "#ace5ee"
     }
 
     DEFAULT_COLOR = "#eceff4"
